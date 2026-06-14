@@ -1,0 +1,143 @@
+License token behavior:
+- The plugin now stores license tokens in a hashed form (`pd_license_token_hash`) and uses an explicit boolean flag (`pd_is_pro`) to enable premium features. On first run, if an existing legacy raw token is found it will be migrated automatically to the new hashed storage.
+- To reset the license (for troubleshooting), use the admin Cleanup button on Settings > PlagueDr License, or delete the following options via WP-CLI or the database: `pd_is_pro`, `pd_license_token_hash`, and `pd_license_token` (legacy).
+
+Admin token generator:
+- The plugin provides an admin-only "Generate Owner Token" button on Settings > PlagueDr License. When clicked it will:
+  - Create a one-time raw token and display it in the UI (copy it immediately).
+  - Store a hashed verification value in `pd_license_token_hash` and set `pd_is_pro = 1`.
+  - Schedule any pro-only cron tasks.
+  - The raw token is stored only in a short-lived transient and is not kept in plaintext in the DB.
+
+Plugin Install and Deployment Instructions
+
+What this plugin does (plain English):
+- Provides system health checks and crash protection for your WordPress site.
+- Includes branding and referral links pointing back to https://curedhosting.com for promotion.
+- Optimizes images automatically, including compression, WebP generation, resizing, and watermarking.
+- Sends video uploads to a remote encoding service so your videos are optimized without you doing extra work.
+- Adds SEO improvements like better social preview metadata and structured data for search engines.
+- Lets you create galleries from remote image and video URLs with a shortcode.
+- Lets you manage banner ads and affiliate links from the WordPress dashboard.
+- Includes premium tools for proxy crawling, a code assistant, and advanced site safety.
+
+1. Copy the plugin folder into WordPress:
+   - Place the entire directory at:
+     wp-content/plugins/cured-hosting-diagnostics
+   - The folder should contain:
+     - cured-hosting-diagnostics.php
+     - plaguedr-core.php
+     - class-diagnostics.php
+     - class-seo.php
+     - class-seo-admin.php
+     - class-media-pipeline.php
+     - class-copilot.php
+     - class-gallery-maker.php
+     - class-banner-affiliate.php
+     - pixel-pure/pixel-pure.php
+     - proxy-crawler/proxy-crawler-core.php
+     - proxy-crawler/proxy-crawler-admin.php
+     - class-airbag.php
+     - beak-armor.php
+     - leech-drain-cache.php
+     - login-sentinel/login-sentinel.php
+     - code-assistant/code-assistant.php
+     - miasma-shield/miasma-shield.php
+
+2. Activate the plugin:
+   - Log in to WordPress admin.
+   - Go to Plugins > Installed Plugins.
+   - Activate "Cured Hosting Diagnostics".
+
+3. Set the premium license:
+   - Go to Settings > PlagueDr License.
+   - Enter the premium token.
+   - Save to unlock premium features.
+
+4. Configure premium modules:
+   - Media Pipeline: Settings > Media Pipeline
+     - Enter Zencoder API token
+   - SEO enhancements: Settings > Media Pipeline
+     - Default OG image, organization name, Twitter handle
+     - Enable advanced schema
+   - Image optimization: Settings > PlagueDr License
+     - Set compression quality
+     - Set max resize width/height
+     - Configure watermark text or image and opacity
+   - Gallery maker: Settings > Gallery Maker
+     - Create remote galleries and save slug
+     - Use shortcode [plaguedr_gallery slug="your-gallery-slug"]
+   - Banner manager: Settings > Banner Manager
+     - Define banners and affiliate programs
+     - Use shortcodes [plaguedr_banner slug="banner-slug"] or [plaguedr_affiliate slug="partner-slug" text="Shop now"]
+
+5. Confirm module files are in the right place:
+   - Plugin root: cured-hosting-diagnostics.php
+   - Root module files: plaguedr-core.php, class-diagnostics.php, class-seo.php, class-seo-admin.php, class-media-pipeline.php, class-copilot.php, class-gallery-maker.php, class-banner-affiliate.php, class-airbag.php, beak-armor.php, leech-drain-cache.php
+   - Subfolders:
+     - pixel-pure/pixel-pure.php
+     - proxy-crawler/proxy-crawler-core.php
+     - proxy-crawler/proxy-crawler-admin.php
+     - login-sentinel/login-sentinel.php
+     - code-assistant/code-assistant.php
+     - miasma-shield/miasma-shield.php
+
+6. Optional troubleshooting:
+   - If WordPress fails to activate, confirm plugin root file exists and all required files are present.
+   - Check file permissions for the plugin folder.
+   - If premium functions do not appear, verify the license token and that premium is active.
+
+7. Recommended workflow:
+   - Activate the plugin first.
+   - Enter the license token.
+   - Configure settings one premium module at a time.
+   - Test uploads, galleries, and banners after configuration.
+
+Note:
+- This suite is designed to be self-contained in one plugin folder.
+- Keep the folder structure intact when copying into WordPress.
+
+Modification Note (2026-06-13):
+- The MU-ready packaging and loader were added; to deploy as a drop-in MU-package, copy the contents of the `mu-plugins` folder into `wp-content/mu-plugins/` (the loader will include package files automatically).
+- Use `exclude.list` (create next to the loader) to prevent specific files or substrings from being loaded at runtime. Lines beginning with `#` are ignored; one pattern per line.
+- An `uninstall.php` file is included to attempt safe cleanup of options, transients, and scheduled events if you remove the package. For MU deployments, use the admin cleanup button (Settings > PlagueDr License) before removing files to ensure scheduled tasks and options are cleared.
+
+Zipping / Deployment:
+- The bundle can be re-zipped directly from the `mu-plugins` folder. Example PowerShell command (run from the parent directory):
+
+```powershell
+$src = 'c:\Users\Sirkl_000\Desktop\keepers\cured-hosting-diagnostics-package\mu-plugins'
+$zip = 'c:\Users\Sirkl_000\Desktop\keepers\cured-hosting-diagnostics-package\cured-hosting-mu-plugins.zip'
+if (Test-Path $zip) { Remove-Item $zip -Force }
+Compress-Archive -Path (Join-Path $src '*') -DestinationPath $zip
+```
+
+If you'd like, I can re-run a quick `php -l` validation across the MU files and re-create the zip here; otherwise you're all set to ZIP locally.
+
+Things to test after deployment (quick checklist):
+
+1) Plugin load and admin page
+  - Visit **Settings > PlagueDr License**. Confirm page loads without PHP errors.
+  - Use the **Generate Owner Token** button (admin only) to create a token and copy it.
+  - Confirm the UI shows "PRO VALIDATION SECURED" after generation.
+
+2) License persistence
+  - Verify option `pd_is_pro` is set (via WP-CLI `wp option get pd_is_pro`).
+  - Verify `pd_license_token_hash` exists and raw token is not stored.
+
+3) Media optimization (Pixel-Pure)
+  - Upload a JPEG and PNG image. Confirm the images are optimized and WebP variants are generated for PRO.
+  - If PRO disabled, ensure no WebP/resizing occurs.
+
+4) Admin TODO list
+  - On Settings > PlagueDr License, add several TODO lines and save. Reload page — the list should display.
+
+5) Cleanup flow
+  - Click **Cleanup Stored Options** and confirm `pd_is_pro` and `pd_license_token_hash` are removed (or run `wp option get` to verify).
+
+6) Cron and transient cleanup
+  - If PRO was enabled, verify `wp next-scheduled 'wp_next_scheduled_harvester'` shows scheduled event. After cleanup, it should be unscheduled.
+
+7) Safety checks
+  - Visit a public page and inspect page source for OG/meta output from `seo-diagnostics.php` — no raw unsanitized $_SERVER values should appear.
+

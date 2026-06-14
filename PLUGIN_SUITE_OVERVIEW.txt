@@ -1,0 +1,86 @@
+PlagueDr Suite Overview
+
+About the suite:
+- Full-featured WordPress plugin suite built to be self-contained and premium-ready.
+- Combines diagnostics, security rollback, remote media pipeline, code assistance, image optimization, gallery embedding, premium SEO, and banner/affiliate management.
+- Premium license unlocks the advanced modules and makes the system worth every penny.
+
+What it does:
+- Core diagnostics and host/plugin safety tools
+- Local image optimization and WebP generation
+- Premium image resize and watermarking
+- Remote video optimization via Zencoder
+- Gallery maker for remote image/video embedding
+- Advanced Open Graph and JSON-LD schema injection for premium sites
+- Banner placement and affiliate partner manager with automatic header/footer injection and shortcodes
+- Proxy crawler and status dashboard (premium only)
+- AI code assistant (premium only)
+
+Important project files and locations:
+
+Root plugin file:
+- cured-hosting-diagnostics.php
+  - Main bootstrap that loads all modules and registers plugin initialization.
+
+Core premium and admin settings:
+- plaguedr-core.php
+  - License gate, premium settings, and option persistence.
+
+SEO engine:
+- class-seo.php
+  - Metadata injection, premium OG/Twitter tags, schema output, and media upload interception.
+- class-seo-admin.php
+  - Admin settings for Zencoder token and premium SEO options.
+
+Diagnostics / premium safety:
+- class-diagnostics.php
+  - Premium active check, crash rollback, and system safety utilities.
+
+Media pipeline:
+- class-media-pipeline.php
+  - Upload interception for remote video optimization via Zencoder.
+
+Code assistant:
+- class-copilot.php
+  - Premium code assistant backend and admin integration.
+
+Image optimization:
+- pixel-pure/pixel-pure.php
+  - Local image compression, WebP conversion, premium resize and watermark support, plus bulk optimization.
+
+Gallery builder:
+- class-gallery-maker.php
+  - Remote image/video gallery builder and shortcode renderer.
+
+Banner / affiliate manager:
+- class-banner-affiliate.php
+  - Premium banner definitions, automatic placement, and affiliate URL generation.
+
+Proxy crawler:
+- proxy-crawler/proxy-crawler-core.php
+- proxy-crawler/proxy-crawler-admin.php
+  - Premium proxy harvesting, pool testing, and crawler admin UI.
+
+Other plugin modules:
+- class-airbag.php
+- beak-armor.php
+- leech-drain-cache.php
+- login-sentinel/login-sentinel.php
+- code-assistant/code-assistant.php
+- miasma-shield/miasma-shield.php
+
+Where to place these files:
+- Copy the entire `cured-hosting-diagnostics` folder into your WordPress installation under `wp-content/plugins/`.
+- The root plugin file `cured-hosting-diagnostics.php` must remain in the plugin root folder.
+- Module files can remain in the same structure shown here, including subfolders like `pixel-pure`, `proxy-crawler`, `code-assistant`, `login-sentinel`, and `miasma-shield`.
+
+How to install in WordPress:
+1. Place the full folder at `wp-content/plugins/cured-hosting-diagnostics`.
+2. Activate the plugin from WordPress admin > Plugins.
+3. Go to Settings > PlagueDr License and enter the premium license token.
+4. Configure media pipeline, SEO settings, galleries, and banner campaigns as needed.
+
+Notes:
+- Premium functionality is gated by the license token and requires `PlagueDr_Diagnostics::is_premium_active()` to return true.
+- The plugin is designed to keep code and media optimizations local whenever possible, while also supporting remote video services and embeds.
+- This suite is built for a professional site owner who wants a single powerful plugin package rather than many separate plugins.

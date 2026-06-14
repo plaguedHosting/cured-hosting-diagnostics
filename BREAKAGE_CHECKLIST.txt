@@ -1,0 +1,57 @@
+Plugin Breakage Test Checklist
+
+1. Plugin Activation
+   - Install the plugin folder under wp-content/plugins/cured-hosting-diagnostics
+   - Activate the plugin in WordPress
+   - Confirm there are no activation errors
+
+2. Premium License
+   - Go to Settings > PlagueDr License
+   - Enter the premium token: plaguedr_pro_elite
+   - Save and confirm the page shows Premium status
+
+3. Admin UI and Branding
+   - Confirm the plugin logo appears in the license dashboard
+   - Confirm the "Powered by curedhosting.com" link is visible
+   - Confirm the hidden tracking beacon loads without breaking the UI
+
+4. Image Optimization
+   - Upload a JPEG and PNG image
+   - Confirm the image is processed and replaced with an optimized version
+   - Verify WebP variants are generated for uploaded images
+   - For premium mode, test resizing and watermark settings
+
+5. Video Pipeline
+   - Go to Settings > Media Pipeline
+   - Enter a Zencoder API token if available
+   - Upload a video file and confirm the upload is handled without blocking
+
+6. Gallery Builder
+   - Go to Settings > Gallery Maker
+   - Create a gallery with remote image and video URLs
+   - Add the shortcode [plaguedr_gallery slug="your-gallery-slug"] to a page
+   - Confirm the gallery renders correctly on the front end
+
+7. Banner & Affiliate Manager
+   - Go to Settings > Banner Manager
+   - Create a banner campaign and affiliate program
+   - Place a banner using [plaguedr_banner slug="banner-slug"]
+   - Place an affiliate button using [plaguedr_affiliate slug="partner-slug" text="Shop now"]
+   - Confirm automatic header/footer banners display if enabled
+
+8. SEO Enhancements
+   - Go to Settings > Media Pipeline and set default OG image, organization name, and Twitter handle
+   - Enable advanced schema
+   - Confirm the page source contains og:title, og:description, og:url, and JSON-LD schema on a post
+
+9. Proxy Crawler and Premium Pages
+   - If premium is active, access the crawler and gallery admin pages
+   - Confirm the crawler admin UI loads
+
+10. Documentation and Files
+   - Confirm `README.md`, `INSTALL_INSTRUCTIONS.txt`, and `PLUGIN_SUITE_OVERVIEW.txt` are present in the package
+   - Confirm the package does not include `.git`, `.continue`, or any previous zip files
+
+Package creation notes:
+- A clean package copy has been created in the `package` folder.
+- A zip archive named `cured-hosting-diagnostics-package.zip` has been generated in the workspace root.

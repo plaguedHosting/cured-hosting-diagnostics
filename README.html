@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cured Hosting Diagnostics — Readme</title>
+  <style>body{font-family:Arial,Helvetica,sans-serif;line-height:1.5;color:#222;padding:24px}h1,h2{color:#111}pre{background:#f7f7f7;padding:12px;border:1px solid #eee}</style>
+</head>
+<body>
+  <h1>Cured Hosting Diagnostics — What this package does</h1>
+  <p>This package improves reliability, security, performance, and debugging for Cured Hosting customers. It contains modular components that work together to reduce downtime and speed root-cause analysis.</p>
+
+  <h2>Components</h2>
+  <ul>
+    <li><strong>PlagueDr Diagnostics</strong> — Core runtime safety engine capturing preflight snapshots, intercepting fatal crashes and allowing safe rollbacks.</li>
+    <li><strong>PlagueDr SEO</strong> — SEO helpers, Open Graph defaults, and optional advanced schema with an admin UI.</li>
+    <li><strong>Media Pipeline</strong> — Background media processing hooks to prepare optimized responsive media.</li>
+    <li><strong>Sentinel</strong> — Security monitoring and checks for suspicious activity.</li>
+    <li><strong>Copilot / Code Assistant</strong> — Developer utilities to speed diagnostics and fixes.</li>
+    <li><strong>Airbag</strong> — Protective runtime guard rails for risky operations.</li>
+    <li><strong>Beak Armor / PlagueDr Core</strong> — Shared bootstrapping and utilities.</li>
+    <li><strong>Leech Drain Cache</strong> — Safe cache management helpers.</li>
+    <li><strong>Optional modules</strong> — Gallery, banner, affiliate modules loaded conditionally to avoid fatal activations.</li>
+  </ul>
+
+  <h2>Why this helps Cured Hosting</h2>
+  <ul>
+    <li>Less downtime via automatic detection and rollback of fatal plugin activations.</li>
+    <li>Faster debugging with telemetry and captured crash logs.</li>
+    <li>Improved performance through media optimization and cache helpers.</li>
+    <li>Production safety with guard rails to avoid destructive changes.</li>
+    <li>Built-in SEO readiness for social previews and search schema.</li>
+    <li>Modular design that won't fail when optional pieces are absent.</li>
+  </ul>
+
+  <h2>Installation & Operational Notes</h2>
+  <ul>
+    <li>Install as a regular plugin; avoid activating both MU and plugins copies simultaneously.</li>
+    <li>Check server PHP error logs and the `plaguedr_resolved_clash_log` option if you see a fatal error.</li>
+    <li>Premium features are gated by license flags and will return `LOCKED` when not active.</li>
+  </ul>
+
+  <h2>Next Steps</h2>
+  <p>Use the admin Tools → Cured Hosting Info page to view the package overview inside WP. For troubleshooting, provide PHP/Apache/Nginx error logs together with the plugin's resolved clash log.</p>
+</body>
+</html>
