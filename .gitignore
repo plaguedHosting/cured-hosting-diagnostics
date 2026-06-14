@@ -1,0 +1,12 @@
+﻿/vendor/
+/composer.lock
+/.idea/
+/.vscode/
+.DS_Store
+*.log
+/dist/
+/node_modules/
+/.phpunit.result.cache
+/coverage/
+/*.zip
+/*.tar.gz
